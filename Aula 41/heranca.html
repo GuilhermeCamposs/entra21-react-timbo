@@ -69,6 +69,7 @@
         /*
         Exercícios
 
+
         1) Corrija o script a seguir para que ele funcione
         class Animal {
             constructor(nome) {
@@ -79,6 +80,22 @@
         class Coelho extends Animal {
             constructor(nome) {
                 this.nome = nome
+                this.criadoEm = Date.now()
+            }
+        }
+
+        let coelho = new Coelho("Coelho Branco")
+        alert(coelho.nome)
+
+        class Animal {
+            constructor(nome) {
+                this.nome = nome
+            }            
+        }
+
+        class Coelho extends Animal {
+            constructor(nome) {
+                super(nome)                
                 this.criadoEm = Date.now()
             }
         }
@@ -126,6 +143,56 @@
         let timer1 = new Relogio("h:m:s")
         timer1.comecar()
 
+        class Relogio {
+            constructor(formato) {
+                this.formato = formato
+            }
+
+            renderizar() {
+                let data = new Date()
+
+                let horas = data.getHours()
+                if (horas < 10) horas = "0" + horas
+
+                let minutos = data.getMinutes()
+                if (minutos < 10) minutos = "0" + minutos
+
+                let segundos = data.getSeconds()
+                if (segundos < 10) segundos = "0" + segundos
+
+                let resultado = this.formato
+                    .replace("h", horas)
+                    .replace("m", minutos)
+                    .replace("s", segundos)
+                
+                console.log(resultado)
+            }
+
+            parar() {
+                clearInterval(this.timer)
+            }
+
+            comecar() {
+                this.renderizar()
+                this.timer = setInterval(() => this.renderizar(), 1000)
+            }
+        }
+
+        class RelogioComTick extends Relogio {
+            constructor(formato, tick) {
+                super(formato);
+                this.tick = tick;
+            }
+
+            comecar() {
+                super.renderizar();
+                this.timer = setInterval(() => super.renderizar(), this.tick);
+            }
+        }
+
+        let timer1 = new RelogioComTick("h:m:s", 3000)
+        timer1.comecar()
+
         3) Crie a classe Imovel, que possui um endereço e um preço.
         a. crie uma classe Novo, que herda Imovel e possui um adicional no preço. Crie
         métodos de acesso e impressão deste valor adicional.        
@@ -134,6 +201,63 @@
         
         Ambas as classes Novo e Velho devem implementar um método calculaTotal() que informa
         o valor com o adicional ou com o desconto.
+
+        class Imovel {
+            constructor(endereco, preco) {
+                this.endereco = endereco;
+                this.preco = preco;
+            }
+        }
+
+        class Novo extends Imovel {
+            #valorAdicional;
+            constructor(endereco, preco, valorAdicional) {
+                super(endereco, preco);
+                this.#valorAdicional = valorAdicional;
+            }
+
+            get valorAdicional() {
+                return this.#valorAdicional;
+            }            
+
+            set valorAdicional(valor) {
+                this.#valorAdicional = valor;
+            }
+
+            calculaTotal() {
+                return this.preco + this.#valorAdicional;
+            }
+        }
+
+        class Velho extends Imovel {
+            #valorDesconto;
+            constructor(endereco, preco, valorDesconto) {
+                super(endereco, preco);
+                this.#valorDesconto = valorDesconto;
+            }
+
+            get valorDesconto() {
+                return this.#valorDesconto;
+            }            
+
+            set valorDesconto(valor) {
+                this.#valorDesconto = valor;
+            }
+
+            calculaTotal() {
+                return this.preco - this.#valorDesconto;
+            }
+        }
+
+        const imovelNovo = new Novo("Rua aaa", 1000, 20);        
+        imovelNovo.valorAdicional = 100;
+        console.log(imovelNovo.valorAdicional);
+        console.log(imovelNovo.calculaTotal());
+
+        const imovelVelho = new Velho("Rua aaa", 1000, 20);        
+        imovelVelho.valorDesconto = 100;
+        console.log(imovelVelho.valorDesconto);
+        console.log(imovelVelho.calculaTotal());
         
         4) Crie uma classe Animal que possua os seguintes atributos:
             - nome
@@ -155,6 +279,52 @@
         que mostra um relatório contendo as informações do Mamífero.
 
         Após isso crie um objeto de cada classe e teste os métodos.
+
+        class Animal {
+            constructor(nome, comprimento, numeroPatas, cor, ambiente, velocidadeMedia) {
+                this.nome = nome;
+                this.comprimento = comprimento;
+                this.numeroPatas = numeroPatas;
+                this.cor = cor;
+                this.ambiente = ambiente;
+                this.velocidadeMedia = velocidadeMedia;
+            }
+
+            mostrarDados() {
+                return `Relatório do Animal:\n\nNome: ${this.nome}\nComprimento: ${this.comprimento}\nNúmero de patas: ${this.numeroPatas}\nCor: ${this.cor}\nAmbiente: ${this.ambiente}\nVelocidade Média: ${this.velocidadeMedia}`;
+            }
+        }
+
+        const animal = new Animal("a", 1, 4, "preto", "a", 20);
+        console.log(animal.mostrarDados());
+
+        class Peixe extends Animal {
+            constructor(nome, comprimento, numeroPatas, cor, ambiente, velocidadeMedia, caracteristica) {
+                super(nome, comprimento, numeroPatas, cor, ambiente, velocidadeMedia);
+                this.caracteristica = caracteristica;
+            }
+
+            mostrarDadosPeixe() {
+                return `Relatório do Peixe:\n\nNome: ${this.nome}\nComprimento: ${this.comprimento}\nNúmero de patas: ${this.numeroPatas}\nCor: ${this.cor}\nAmbiente: ${this.ambiente}\nVelocidade Média: ${this.velocidadeMedia}\nCaracterística: ${this.caracteristica}`;
+            }
+        }
+
+        const peixe = new Peixe("a", 1, 4, "preto", "a", 20, "nada");
+        console.log(peixe.mostrarDadosPeixe());
+
+        class Mamifero extends Animal {
+            constructor(nome, comprimento, numeroPatas, cor, ambiente, velocidadeMedia, alimento) {
+                super(nome, comprimento, numeroPatas, cor, ambiente, velocidadeMedia);
+                this.alimento = alimento;
+            }
+
+            mostrarDadosMamifero() {
+                return `Relatório do Mamífero:\n\nNome: ${this.nome}\nComprimento: ${this.comprimento}\nNúmero de patas: ${this.numeroPatas}\nCor: ${this.cor}\nAmbiente: ${this.ambiente}\nVelocidade Média: ${this.velocidadeMedia}\nCaracterística: ${this.alimento}`;
+            }
+        }
+
+        const mamifero = new Mamifero("a", 1, 4, "preto", "a", 20, "carne");
+        console.log(mamifero.mostrarDadosMamifero());
         */
     </script>
 </body>
