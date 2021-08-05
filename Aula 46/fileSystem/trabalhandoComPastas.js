@@ -41,7 +41,7 @@ fs.readdir(nomePasta, (err, files) => {
 })();
 
 
-// Renomeando uma pasta/arquivo (Callback)
+// Renomeando ou movendo uma pasta/arquivo (Callback)
 fs.rename(path.resolve(__dirname, "vouSerRenomeado.js"), "fuiRenomeado.js", err => {
     if (err) {
         return console.log(err.message);
@@ -50,7 +50,7 @@ fs.rename(path.resolve(__dirname, "vouSerRenomeado.js"), "fuiRenomeado.js", err 
     console.log("Arquivo renomeado (Callback)");
 });
 
-// Renomeando uma pasta/arquivo (Promise)
+// Renomeando ou movendo uma pasta/arquivo (Promise)
 (async () => {
     try {
         await fsPromises.rename(path.resolve(__dirname, "vouSerRenomeado.js"), "fuiRenomeado.js");
@@ -93,5 +93,4 @@ para a nova pasta.
 
 3) Crie uma função moveEspecificFiles(oldFolderPath, newFolderPath, extension) que move os arquivos
 com a extensão informada para a nova pasta.
-
 */

@@ -61,5 +61,4 @@ Onde:
     * total_memory: Quantidade total de memória.
     * free_memory: Quantidade de memória livre.
     * usage: Porcentagem de uso da memória.
-
 */

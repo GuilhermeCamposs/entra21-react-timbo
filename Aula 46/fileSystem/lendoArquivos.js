@@ -43,7 +43,6 @@ email: [email do usuário]
 
 Caso o usuário não existir mostrar a mensagem: "Usuário não foi encontrado."
 
-
 3) Faça um script que leia o arquivo exercioNomes.txt e utilize a biblioteca chalk (https://www.npmjs.com/package/chalk) para
 mostrar os nomes que começam com a letra A em vermelho, os nomes que começam com a letra C em azul e os
 nomes que começam com a letra D em magenta.
