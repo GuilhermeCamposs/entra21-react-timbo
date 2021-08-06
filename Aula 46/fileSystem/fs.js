@@ -1,6 +1,7 @@
 // O módulo fs nos permite interagir com o file system.
 const fs = require("fs");
 const fsPromises = require("fs/promises");
+const path = require("path")
 
 // Obtendo as informações de um arquivo (Callback)
 fs.stat(path.resolve(__dirname, "./teste.txt"), (err, stats) => {
